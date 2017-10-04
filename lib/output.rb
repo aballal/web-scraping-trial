@@ -10,13 +10,22 @@ class Output
   end
 
   def csv(filename)
-    filename = File.join(File.dirname(__FILE__), '..', filename)
-    CSV.open(filename,"w") do |csv|
+    CSV.open(fullpath(filename),"w") do |csv|
       details.each { |detail| csv << detail}
+    end
+  end
+
+  def json(filename)
+    File.open(fullpath(filename),"w") do |file|
+      file.puts JSON.pretty_generate(details.map {|name, price| {name: name, price: price}})
     end
   end
 
   private
 
   attr_reader :details
+
+  def fullpath(filename)
+    File.join(File.dirname(__FILE__), '..', filename)
+  end
 end
