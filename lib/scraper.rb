@@ -6,15 +6,19 @@ class Scraper
     @parse_page = Nokogiri::HTML(page)
   end
 
-  def names
-    parse_page.css(".grid-item-info").css(".product-name").css(".product-display-name").children.map do |name|
-      name.text
-    end
+  def items
+    parse_page.css(".grid-item-info").map do |item|
+      [name(item), price(item)]
+    end.reject { |info| info == ["", ""]}
   end
 
-  def prices
-    parse_page.css(".grid-item-info").css(".product-price").css("span.local").children.map do |price|
-      price.text
-    end
+  private
+
+  def name(item)
+    item.children.css(".product-name").css(".product-display-name").text
+  end
+
+  def price(item)
+    item.css(".product-price").css("span.local").text
   end
 end

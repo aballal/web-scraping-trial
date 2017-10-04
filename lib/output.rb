@@ -10,6 +10,7 @@ class Output
   end
 
   def csv(filename)
+    filename = File.join(File.dirname(__FILE__), '..', filename)
     CSV.open(filename,"w") do |csv|
       details.each { |detail| csv << detail}
     end
