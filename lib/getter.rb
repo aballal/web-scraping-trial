@@ -1,8 +1,8 @@
 require 'mechanize'
 
 class Getter
-  def initialize
-    @agent = Mechanize.new
+  def initialize(agent = Mechanize.new)
+    @agent = agent
   end
 
   def page(url)

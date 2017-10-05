@@ -11,6 +11,8 @@ class Scraper
 
   private
 
+  attr_reader :parse_page
+
   def name(item)
     item.children.css(".product-name").css(".product-display-name").text
   end
@@ -18,8 +20,4 @@ class Scraper
   def price(item)
     item.css(".product-price").css("span.local").text
   end
-
-  private
-
-  attr_reader :parse_page
 end
