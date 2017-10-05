@@ -1,4 +1,7 @@
-class Output
+require 'csv'
+require 'json'
+
+class Outputter
   def initialize(details)
     @details = details
   end

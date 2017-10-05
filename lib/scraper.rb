@@ -1,9 +1,6 @@
 class Scraper
-  attr_reader :parse_page
-
-  def initialize
-    page = HTTParty.get("https://store.nike.com/us/en_us/pw/mens-nikeid-lifestyle-shoes/1k9Z7puZoneZoi3")
-    @parse_page = Nokogiri::HTML(page)
+  def initialize(page)
+    @parse_page = page.parser
   end
 
   def items
@@ -21,4 +18,8 @@ class Scraper
   def price(item)
     item.css(".product-price").css("span.local").text
   end
+
+  private
+
+  attr_reader :parse_page
 end
